@@ -35,7 +35,7 @@ function About() {
 
           <div>
             <p className="text-lg text-gray-700 leading-relaxed">
-              Wesabi Pharmacy delivers high-quality healthcare to the Dagoretti community.
+              Wesabi Pharmacy delivers high-quality healthcare to community.
               We offer reliable medication supplies, professional consultations, and friendly
               customer support. Our mission is to make healthcare accessible, affordable,
               and trustworthy for everyone in our neighborhood.

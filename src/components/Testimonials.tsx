@@ -3,24 +3,24 @@ import { Star } from 'lucide-react';
 
 const testimonials = [
   {
-    name: 'Grace Wanjiku',
-    photo: 'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=300',
-    review: 'Wesabi Pharmacy has been a lifesaver for our family. The staff is knowledgeable, friendly, and always ready to help. Their delivery service is fast and reliable!',
+    name: 'Felix Loparun',
+    photo: '',
+    review: 'Prompt service! Called and meds were delivered swiftly. Enjoyed a great discount too! Thank you.',
   },
   {
-    name: 'James Omondi',
-    photo: 'https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=300',
-    review: 'Best pharmacy in Dagoretti! Affordable prices, genuine medicines, and excellent customer service. I always recommend Wesabi to my neighbors.',
+    name: 'Kevin Kimeli',
+    photo: '',
+    review: 'I found Wesabi Pharmacy through their website, placed my order easily, and got fast delivery. Everything was well packed and their support on WhatsApp was really helpful.',
   },
   {
-    name: 'Mary Njeri',
-    photo: 'https://images.pexels.com/photos/3763188/pexels-photo-3763188.jpeg?auto=compress&cs=tinysrgb&w=300',
-    review: 'The health screening services are very professional. I get my blood pressure checked here regularly, and the team is always caring and thorough.',
+    name: 'LAMEK ASEWE',
+    photo: '',
+    review: 'Listening physician. Kudos',
   },
   {
-    name: 'David Kamau',
-    photo: 'https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=300',
-    review: 'Quick prescription filling and great advice on medication. Wesabi Pharmacy truly cares about the community. Highly recommended!',
+    name: 'OTWANI JEREMIAH',
+    photo: '',
+    review: 'The best pharmacy around! \nExcellent service!'
   },
 ];
 
@@ -58,7 +58,7 @@ function Testimonials() {
           </h2>
           <div className="w-20 h-1.5 bg-[#2BB673] rounded-full mx-auto mb-6"></div>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Trusted by hundreds of families in Dagoretti
+            Trusted by hundreds of families
           </p>
         </div>
 

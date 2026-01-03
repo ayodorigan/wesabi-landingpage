@@ -20,7 +20,7 @@ const badges = [
   {
     icon: Users,
     title: 'Community Trusted',
-    description: 'Serving Dagoretti with care',
+    description: 'Serving with care',
   },
   {
     icon: CheckCircle,

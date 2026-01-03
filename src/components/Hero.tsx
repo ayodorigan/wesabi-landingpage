@@ -52,7 +52,7 @@ function Hero() {
         </h1>
 
         <p className="text-xl md:text-2xl text-white/95 mb-10 max-w-3xl mx-auto leading-relaxed">
-          Affordable medicines, expert consultations, and reliable health services for the Dagoretti community
+          Affordable medicines, expert consultations, and reliable health services.
         </p>
 
         <button
