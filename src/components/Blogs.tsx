@@ -1,32 +1,23 @@
-import { useEffect, useRef } from 'react';
-import { Calendar, User, ArrowRight } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
+import { Calendar, User, ArrowRight, Filter } from 'lucide-react';
+import { blogPosts, BlogPost } from '../data/blogData';
+import BlogModal from './BlogModal';
 
-const blogPosts = [
-    {
-        title: '5 Tips for Managing Your Blood Pressure',
-        excerpt: 'Small lifestyle changes can make a big difference in your cardiovascular health...',
-        date: 'Feb 10, 2026',
-        author: 'Dr. Jane Doe',
-        image: 'https://images.pexels.com/photos/6050516/pexels-photo-6050516.jpeg?auto=compress&cs=tinysrgb&w=800',
-    },
-    {
-        title: 'Understanding Your Prescription Labels',
-        excerpt: 'What do those symbols and abbreviations actually mean? A guide for patients...',
-        date: 'Feb 05, 2026',
-        author: 'Pharm. John Smith',
-        image: 'https://images.pexels.com/photos/5910956/pexels-photo-5910956.jpeg?auto=compress&cs=tinysrgb&w=800',
-    },
-    {
-        title: 'Boosting Your Immune System Naturally',
-        excerpt: 'Eat your way to better health with these nutrient-dense foods available at your local market...',
-        date: 'Jan 28, 2026',
-        author: 'Sarah Johnson',
-        image: 'https://images.pexels.com/photos/1435737/pexels-photo-1435737.jpeg?auto=compress&cs=tinysrgb&w=800',
-    },
-];
+const categories = ['All', 'Immediate Help', 'Medication Safety', 'Chronic Care', 'Pharmacy Services'] as const;
+type Category = typeof categories[number];
 
 function Blogs() {
+    const [activeCategory, setActiveCategory] = useState<Category>('All');
+    const [visiblePosts, setVisiblePosts] = useState(6);
+    const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const sectionRef = useRef<HTMLDivElement>(null);
+
+    const filteredPosts = blogPosts.filter(
+        (post) => activeCategory === 'All' || post.category === activeCategory
+    );
+
+    const displayedPosts = filteredPosts.slice(0, visiblePosts);
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -45,7 +36,12 @@ function Blogs() {
         }
 
         return () => observer.disconnect();
-    }, []);
+    }, [activeCategory]);
+
+    const handleReadMore = (post: BlogPost) => {
+        setSelectedPost(post);
+        setIsModalOpen(true);
+    };
 
     return (
         <section id="blogs" className="py-24 bg-gray-50 overflow-hidden">
@@ -61,24 +57,48 @@ function Blogs() {
                         </p>
                     </div>
 
-                    <div className="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto">
-                        {blogPosts.map((post, index) => (
-                            <div
-                                key={index}
-                                className="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 group"
+                    {/* Categories Filter */}
+                    <div className="flex flex-wrap justify-center gap-3 mb-12 max-w-4xl mx-auto">
+                        <div className="flex items-center gap-2 mr-4 text-gray-500 font-semibold hidden md:flex">
+                            <Filter className="w-4 h-4" />
+                            <span>Filter:</span>
+                        </div>
+                        {categories.map((cat) => (
+                            <button
+                                key={cat}
+                                onClick={() => {
+                                    setActiveCategory(cat);
+                                    setVisiblePosts(6);
+                                }}
+                                className={`px-6 py-2 rounded-full text-sm font-bold transition-all duration-300 border-2 ${activeCategory === cat
+                                        ? 'bg-[#2BB673] border-[#2BB673] text-white shadow-lg scale-105'
+                                        : 'bg-white border-gray-200 text-gray-600 hover:border-[#2BB673] hover:text-[#2BB673]'
+                                    }`}
                             >
-                                <div className="relative h-48 overflow-hidden">
+                                {cat}
+                            </button>
+                        ))}
+                    </div>
+
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto min-h-[400px]">
+                        {displayedPosts.map((post, index) => (
+                            <div
+                                key={post.id}
+                                className="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 group flex flex-col h-full"
+                                style={{ animationDelay: `${(index % 6) * 0.1}s` }}
+                            >
+                                <div className="relative h-48 overflow-hidden shrink-0">
                                     <img
                                         src={post.image}
                                         alt={post.title}
                                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                                     />
-                                    <div className="absolute top-4 left-4 bg-[#2BB673] text-white text-xs font-bold px-3 py-1 rounded-full">
-                                        Health Tips
+                                    <div className="absolute top-4 left-4 bg-[#2BB673] text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                                        {post.category}
                                     </div>
                                 </div>
 
-                                <div className="p-6">
+                                <div className="p-6 flex flex-col flex-1">
                                     <div className="flex items-center gap-4 text-xs text-gray-500 mb-4">
                                         <span className="flex items-center gap-1">
                                             <Calendar className="w-3 h-3 text-[#2BB673]" />
@@ -90,35 +110,60 @@ function Blogs() {
                                         </span>
                                     </div>
 
-                                    <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-[#2BB673] transition-colors">
+                                    <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-[#2BB673] transition-colors line-clamp-2">
                                         {post.title}
                                     </h3>
 
-                                    <p className="text-gray-600 mb-6 line-clamp-2">
+                                    <p className="text-gray-600 mb-6 line-clamp-3 text-sm flex-1">
                                         {post.excerpt}
                                     </p>
 
-                                    <a
-                                        href="#"
-                                        className="flex items-center gap-2 text-[#2BB673] font-bold text-sm hover:gap-3 transition-all"
+                                    <button
+                                        onClick={() => handleReadMore(post)}
+                                        className="flex items-center gap-2 text-[#2BB673] font-bold text-sm hover:gap-3 transition-all mt-auto w-fit"
                                     >
-                                        Read More
+                                        Read Full Post
                                         <ArrowRight className="w-4 h-4" />
-                                    </a>
+                                    </button>
                                 </div>
                             </div>
                         ))}
                     </div>
 
-                    <div className="text-center mt-12">
-                        <button className="border-2 border-[#2BB673] text-[#2BB673] hover:bg-[#2BB673] hover:text-white font-bold px-8 py-3 rounded-full transition-all duration-300">
-                            View All Posts
-                        </button>
-                    </div>
+                    {/* Load More */}
+                    {visiblePosts < filteredPosts.length && (
+                        <div className="text-center mt-16">
+                            <button
+                                onClick={() => setVisiblePosts((prev) => prev + 6)}
+                                className="bg-white border-2 border-[#2BB673] text-[#2BB673] hover:bg-[#2BB673] hover:text-white font-bold px-10 py-4 rounded-full transition-all duration-300 shadow-md hover:shadow-xl transform hover:-translate-y-1"
+                            >
+                                Load More Articles
+                            </button>
+                        </div>
+                    )}
+
+                    {filteredPosts.length === 0 && (
+                        <div className="text-center py-20 bg-white rounded-3xl border-2 border-dashed border-gray-200">
+                            <p className="text-gray-500 text-lg">No articles found in this category yet.</p>
+                            <button
+                                onClick={() => setActiveCategory('All')}
+                                className="text-[#2BB673] font-bold mt-4 hover:underline"
+                            >
+                                Clear Filters
+                            </button>
+                        </div>
+                    )}
                 </div>
             </div>
+
+            <BlogModal
+                isOpen={isModalOpen}
+                post={selectedPost}
+                onClose={() => setIsModalOpen(false)}
+            />
         </section>
     );
 }
 
 export default Blogs;
+
