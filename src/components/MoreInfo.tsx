@@ -44,7 +44,7 @@ function MoreInfo() {
             <p className="text-lg text-gray-700 leading-relaxed">
               We ensure fast, secure, and convenient drug delivery services right to your
               doorstep. Order via phone or WhatsApp and receive your medications within
-              the neighborhood. Your health is our priority, and we make sure you get
+              the . Your health is our priority, and we make sure you get
               what you need when you need it.
             </p>
           </div>

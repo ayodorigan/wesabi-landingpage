@@ -23,7 +23,7 @@ function About() {
   }, []);
 
   return (
-    <section className="py-20 bg-gradient-to-b from-white to-gray-50">
+    <section id="about" className="py-20 bg-gradient-to-b from-white to-gray-50">
       <div ref={sectionRef} className="container mx-auto px-4 opacity-0">
         <div className="grid md:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
           <div>
@@ -38,7 +38,7 @@ function About() {
               Wesabi Pharmacy delivers high-quality healthcare to community.
               We offer reliable medication supplies, professional consultations, and friendly
               customer support. Our mission is to make healthcare accessible, affordable,
-              and trustworthy for everyone in our neighborhood.
+              and trustworthy for everyone in our .
             </p>
           </div>
         </div>

@@ -29,6 +29,7 @@ function Hero() {
 
   return (
     <section
+      id="home"
       ref={heroRef}
       className="relative h-screen flex items-center justify-center overflow-hidden opacity-0"
       style={{
@@ -41,14 +42,8 @@ function Hero() {
       <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/60"></div>
 
       <div className="relative z-10 text-center px-4 max-w-5xl mx-auto">
-        <img
-          src="/logo.png"
-          alt="Wesabi Pharmacy"
-          className="h-24 md:h-32 mx-auto mb-8 drop-shadow-2xl"
-        />
-
         <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
-          Your Trusted Neighborhood Pharmacy
+          Your Trusted Pharmacy
         </h1>
 
         <p className="text-xl md:text-2xl text-white/95 mb-10 max-w-3xl mx-auto leading-relaxed">
