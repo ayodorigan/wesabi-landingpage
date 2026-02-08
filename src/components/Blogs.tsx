@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Calendar, User, ArrowRight, Filter } from 'lucide-react';
-import { blogPosts, BlogPost } from '../data/blogData';
-import BlogModal from './BlogModal';
+import { Link } from 'react-router-dom';
+import { blogPosts } from '../data/blogData';
 
 const categories = ['All', 'Immediate Help', 'Medication Safety', 'Chronic Care', 'Pharmacy Services'] as const;
 type Category = typeof categories[number];
@@ -9,8 +9,6 @@ type Category = typeof categories[number];
 function Blogs() {
     const [activeCategory, setActiveCategory] = useState<Category>('All');
     const [visiblePosts, setVisiblePosts] = useState(6);
-    const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null);
-    const [isModalOpen, setIsModalOpen] = useState(false);
     const sectionRef = useRef<HTMLDivElement>(null);
 
     const filteredPosts = blogPosts.filter(
@@ -37,11 +35,6 @@ function Blogs() {
 
         return () => observer.disconnect();
     }, [activeCategory]);
-
-    const handleReadMore = (post: BlogPost) => {
-        setSelectedPost(post);
-        setIsModalOpen(true);
-    };
 
     return (
         <section id="blogs" className="py-24 bg-gray-50 overflow-hidden">
@@ -71,8 +64,8 @@ function Blogs() {
                                     setVisiblePosts(6);
                                 }}
                                 className={`px-6 py-2 rounded-full text-sm font-bold transition-all duration-300 border-2 ${activeCategory === cat
-                                        ? 'bg-[#2BB673] border-[#2BB673] text-white shadow-lg scale-105'
-                                        : 'bg-white border-gray-200 text-gray-600 hover:border-[#2BB673] hover:text-[#2BB673]'
+                                    ? 'bg-[#2BB673] border-[#2BB673] text-white shadow-lg scale-105'
+                                    : 'bg-white border-gray-200 text-gray-600 hover:border-[#2BB673] hover:text-[#2BB673]'
                                     }`}
                             >
                                 {cat}
@@ -82,8 +75,9 @@ function Blogs() {
 
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto min-h-[400px]">
                         {displayedPosts.map((post, index) => (
-                            <div
+                            <Link
                                 key={post.id}
+                                to={`/blog/${post.id}`}
                                 className="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 group flex flex-col h-full"
                                 style={{ animationDelay: `${(index % 6) * 0.1}s` }}
                             >
@@ -118,29 +112,31 @@ function Blogs() {
                                         {post.excerpt}
                                     </p>
 
-                                    <button
-                                        onClick={() => handleReadMore(post)}
-                                        className="flex items-center gap-2 text-[#2BB673] font-bold text-sm hover:gap-3 transition-all mt-auto w-fit"
-                                    >
+                                    <div className="flex items-center gap-2 text-[#2BB673] font-bold text-sm group-hover:gap-3 transition-all mt-auto w-fit">
                                         Read Full Post
                                         <ArrowRight className="w-4 h-4" />
-                                    </button>
+                                    </div>
                                 </div>
-                            </div>
+                            </Link>
                         ))}
                     </div>
 
-                    {/* Load More */}
-                    {visiblePosts < filteredPosts.length && (
-                        <div className="text-center mt-16">
+                    <div className="flex flex-col md:flex-row justify-center items-center gap-6 mt-16">
+                        {visiblePosts < filteredPosts.length && (
                             <button
                                 onClick={() => setVisiblePosts((prev) => prev + 6)}
                                 className="bg-white border-2 border-[#2BB673] text-[#2BB673] hover:bg-[#2BB673] hover:text-white font-bold px-10 py-4 rounded-full transition-all duration-300 shadow-md hover:shadow-xl transform hover:-translate-y-1"
                             >
-                                Load More Articles
+                                Show More Articles
                             </button>
-                        </div>
-                    )}
+                        )}
+                        <Link
+                            to="/blogs"
+                            className="bg-[#2BB673] text-white font-bold px-10 py-4 rounded-full transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 inline-flex items-center justify-center"
+                        >
+                            Visit Full Blog Page
+                        </Link>
+                    </div>
 
                     {filteredPosts.length === 0 && (
                         <div className="text-center py-20 bg-white rounded-3xl border-2 border-dashed border-gray-200">
@@ -155,15 +151,10 @@ function Blogs() {
                     )}
                 </div>
             </div>
-
-            <BlogModal
-                isOpen={isModalOpen}
-                post={selectedPost}
-                onClose={() => setIsModalOpen(false)}
-            />
         </section>
     );
 }
 
 export default Blogs;
+
 

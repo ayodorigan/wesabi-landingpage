@@ -1,24 +1,25 @@
 import { Phone, Mail, MapPin, Facebook, Twitter, Instagram, Linkedin, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 function Footer() {
   const currentYear = new Date().getFullYear();
 
-  const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
-    const element = document.querySelector(href);
-    if (element) {
-      const offset = 80;
-      const bodyRect = document.body.getBoundingClientRect().top;
-      const elementRect = element.getBoundingClientRect().top;
-      const elementPosition = elementRect - bodyRect;
-      const offsetPosition = elementPosition - offset;
+  const primaryServices = [
+    'Prescription Medication',
+    'Over-the-Counter Drugs',
+    'Vaccinations & Immunizations',
+    'Health Screenings',
+    'Drug Delivery Service',
+    'Professional Consultation'
+  ];
 
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth',
-      });
-    }
-  };
+  const quickLinks = [
+    { name: 'Home', href: '/' },
+    { name: 'About Us', href: '/#about' },
+    { name: 'Services', href: '/#services' },
+    { name: 'Health Blog', href: '/blogs' },
+    { name: 'Contact Us', href: '/#contact' }
+  ];
 
   return (
     <footer className="bg-gray-950 text-white pt-20 pb-10">
@@ -34,20 +35,20 @@ function Footer() {
               />
             </div>
             <p className="text-gray-400 leading-relaxed text-base">
-              Wesabi Pharmacy is your trusted  healthcare partner, providing high-quality medicines and professional pharmaceutical services since 2015.
+              Wesabi Pharmacy is your trusted healthcare partner, providing high-quality medicines and professional pharmaceutical services since 2015.
             </p>
             <div className="flex items-center gap-4">
               <a href="#" className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-[#2BB673] transition-all duration-300">
-                <Facebook className="w-5 h-5" />
+                <Facebook className="w-5 h-5 text-white" />
               </a>
               <a href="#" className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-[#2BB673] transition-all duration-300">
-                <Twitter className="w-5 h-5" />
+                <Twitter className="w-5 h-5 text-white" />
               </a>
               <a href="#" className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-[#2BB673] transition-all duration-300">
-                <Instagram className="w-5 h-5" />
+                <Instagram className="w-5 h-5 text-white" />
               </a>
               <a href="#" className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-[#2BB673] transition-all duration-300">
-                <Linkedin className="w-5 h-5" />
+                <Linkedin className="w-5 h-5 text-white" />
               </a>
             </div>
           </div>
@@ -56,16 +57,15 @@ function Footer() {
           <div className="space-y-6">
             <h3 className="text-xl font-bold border-b-2 border-[#2BB673] w-fit pb-1">Quick Links</h3>
             <ul className="space-y-4">
-              {['Home', 'About', 'Services', 'Blogs', 'Contact'].map((item) => (
-                <li key={item}>
-                  <a
-                    href={`#${item.toLowerCase()}`}
-                    onClick={(e) => scrollToSection(e, `#${item.toLowerCase()}`)}
+              {quickLinks.map((link) => (
+                <li key={link.name}>
+                  <Link
+                    to={link.href}
                     className="text-gray-400 hover:text-[#2BB673] flex items-center gap-2 transition-colors group"
                   >
                     <ArrowRight className="w-4 h-4 text-[#2BB673] opacity-0 group-hover:opacity-100 transition-all -translate-x-2 group-hover:translate-x-0" />
-                    {item}
-                  </a>
+                    {link.name}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -75,7 +75,7 @@ function Footer() {
           <div className="space-y-6">
             <h3 className="text-xl font-bold border-b-2 border-[#2BB673] w-fit pb-1">Our Services</h3>
             <ul className="space-y-4">
-              {['Prescription Filling', 'Drug Delivery', 'Health Tests', 'Consultation'].map((item) => (
+              {primaryServices.map((item) => (
                 <li key={item} className="text-gray-400 flex items-center gap-2">
                   <div className="w-1.5 h-1.5 rounded-full bg-[#2BB673]" />
                   {item}
@@ -98,7 +98,7 @@ function Footer() {
               </div>
               <div className="flex items-center gap-3 text-gray-400">
                 <Mail className="w-5 h-5 text-[#2BB673] shrink-0" />
-                <p className="text-sm">support@wesabipharmacy.com</p>
+                <p className="text-sm text-gray-400">support@wesabipharmacy.com</p>
               </div>
             </div>
           </div>
@@ -118,4 +118,5 @@ function Footer() {
 }
 
 export default Footer;
+
 

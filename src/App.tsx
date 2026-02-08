@@ -1,30 +1,25 @@
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import About from './components/About';
-import Services from './components/Services';
-import MoreInfo from './components/MoreInfo';
-import TrustBadges from './components/TrustBadges';
-import Testimonials from './components/Testimonials';
-import Blogs from './components/Blogs';
-import Contact from './components/Contact';
+import Home from './Home';
+import BlogListPage from './pages/BlogListPage';
+import BlogPostPage from './pages/BlogPostPage';
 import Footer from './components/Footer';
-// import WhatsAppButton from './components/WhatsAppButton';
+import ScrollToTop from './components/ScrollToTop';
 
 function App() {
   return (
-    <div className="min-h-screen bg-white">
-      <Navbar />
-      <Hero />
-      <About />
-      <Services />
-      <MoreInfo />
-      <TrustBadges />
-      <Testimonials />
-      <Blogs />
-      <Contact />
-      <Footer />
-      {/* <WhatsAppButton /> */}
-    </div>
+    <Router>
+      <div className="min-h-screen bg-white">
+        <ScrollToTop />
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/blogs" element={<BlogListPage />} />
+          <Route path="/blog/:id" element={<BlogPostPage />} />
+        </Routes>
+        <Footer />
+      </div>
+    </Router>
   );
 }
 
