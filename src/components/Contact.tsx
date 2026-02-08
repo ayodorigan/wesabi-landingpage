@@ -50,7 +50,7 @@ function Contact() {
                 <Phone className="w-7 h-7 text-[#2BB673]" />
               </div>
               <h3 className="font-bold text-gray-900 mb-2">Phone</h3>
-              <p className="text-gray-600">0115691220</p>
+              <p className="text-gray-600">+254115691220</p>
             </div>
 
             <div className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100">
