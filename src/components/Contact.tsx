@@ -58,7 +58,7 @@ function Contact() {
                 <Mail className="w-7 h-7 text-[#2BB673]" />
               </div>
               <h3 className="font-bold text-gray-900 mb-2">Email</h3>
-              <p className="text-gray-600 text-sm break-all">wesabipharmacy@gmail.com</p>
+              <p className="text-gray-600 text-sm break-all">support@wesabipharmacy.com</p>
             </div>
 
             <div className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100">
