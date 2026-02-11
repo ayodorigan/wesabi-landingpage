@@ -43,8 +43,7 @@ function MoreInfo() {
           <div className="bg-white p-8 rounded-2xl shadow-lg border border-gray-100">
             <p className="text-lg text-gray-700 leading-relaxed">
               We ensure fast, secure, and convenient drug delivery services right to your
-              doorstep. Order via phone or WhatsApp and receive your medications within
-              the . Your health is our priority, and we make sure you get
+              doorstep. Order via phone or WhatsApp and receive your medications. Your health is our priority, and we make sure you get
               what you need when you need it.
             </p>
           </div>

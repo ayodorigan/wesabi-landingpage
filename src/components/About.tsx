@@ -38,7 +38,7 @@ function About() {
               Wesabi Pharmacy delivers high-quality healthcare to community.
               We offer reliable medication supplies, professional consultations, and friendly
               customer support. Our mission is to make healthcare accessible, affordable,
-              and trustworthy for everyone in our .
+              and trustworthy for everyone.
             </p>
           </div>
         </div>
