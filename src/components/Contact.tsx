@@ -35,6 +35,14 @@ function Contact() {
     window.open('https://google.com/maps/place/Wesabi+Pharmacy/data=!4m2!3m1!1s0x0:0x3fe7bdda2041c2b6?sa=X&ved=1t:2428&ictx=111', '_blank');
   };
 
+  const handleChatUs = () => {
+    // @ts-ignore
+    if (window.$chatwoot) {
+      // @ts-ignore
+      window.$chatwoot.toggle('open');
+    }
+  };
+
   return (
     <section id="contact" className="py-20 bg-gradient-to-br from-[#2BB673]/5 to-white">
       <div className="container mx-auto px-4">
@@ -85,6 +93,14 @@ function Contact() {
             >
               <MessageCircle className="w-5 h-5" />
               WhatsApp
+            </button>
+
+            <button
+              onClick={handleChatUs}
+              className="bg-[#0052FF] hover:bg-[#0041cc] text-white font-semibold px-8 py-3 rounded-full transition-all duration-300 transform hover:scale-105 hover:shadow-lg flex items-center gap-2"
+            >
+              <MessageCircle className="w-5 h-5" />
+              Chat Us
             </button>
 
             <button

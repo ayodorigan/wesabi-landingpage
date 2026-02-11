@@ -26,7 +26,6 @@ const Navbar = () => {
         { name: 'About', href: '/#about' },
         { name: 'Services', href: '/#services' },
         { name: 'Blogs', href: '/blogs' },
-        { name: 'Contact Us', href: '/#contact' },
     ];
 
     const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>, href: string) => {
@@ -119,7 +118,7 @@ const Navbar = () => {
                                 : 'bg-white text-gray-900 hover:bg-gray-100'
                                 }`}
                         >
-                            Get Started
+                            Contact Us
                         </Link>
                     </div>
 
@@ -160,7 +159,7 @@ const Navbar = () => {
                         }}
                         className="w-full bg-[#2BB673] text-white py-4 rounded-xl font-bold mt-2"
                     >
-                        Contact Us Now
+                        Contact Us
                     </button>
                 </div>
             </div>

@@ -19,6 +19,40 @@ const BlogPostPage = () => {
         );
     }
 
+    const handleWhatsApp = () => {
+        const message = encodeURIComponent(`Hi Wesabi, I have a question about this article: ${post.title}\n\n${window.location.href}`);
+        window.open(`https://wa.me/254115691220?text=${message}`, '_blank');
+    };
+
+    const handleChatUs = () => {
+        // @ts-ignore
+        if (window.$chatwoot) {
+            // @ts-ignore
+            window.$chatwoot.toggle('open');
+        }
+    };
+
+    const handleShare = async () => {
+        if (navigator.share) {
+            try {
+                await navigator.share({
+                    title: post.title,
+                    text: post.excerpt,
+                    url: window.location.href,
+                });
+            } catch (error) {
+                console.error('Error sharing:', error);
+            }
+        } else {
+            try {
+                await navigator.clipboard.writeText(window.location.href);
+                alert('Link copied to clipboard!');
+            } catch (error) {
+                console.error('Error copying to clipboard:', error);
+            }
+        }
+    };
+
     return (
         <div className="pt-24 pb-20 bg-white">
             <SEO
@@ -52,7 +86,7 @@ const BlogPostPage = () => {
                             </div>
                             <div>
                                 <p className="text-gray-900 font-bold text-sm leading-none">{post.author}</p>
-                                <p className="text-xs mt-1">Pharmacist / Health Expert</p>
+                                <p className="text-xs mt-1">Pharmacist</p>
                             </div>
                         </div>
                         <div className="flex items-center gap-2 text-sm ml-auto">
@@ -70,22 +104,36 @@ const BlogPostPage = () => {
                     />
                 </div>
 
-                <article className="prose prose-lg max-w-none text-gray-700 leading-relaxed whitespace-pre-line mb-16">
-                    {post.content}
-                </article>
+                <article
+                    className="prose prose-lg max-w-none text-gray-700 leading-relaxed mb-16"
+                    dangerouslySetInnerHTML={{ __html: post.content }}
+                />
 
                 <div className="bg-gray-50 rounded-3xl p-8 md:p-12 border border-gray-100 flex flex-col md:flex-row items-center gap-8 justify-between">
-                    <div>
+                    <div className="max-w-3xl">
                         <h3 className="text-2xl font-bold text-gray-900 mb-3">Questions about this treatment?</h3>
-                        <p className="text-gray-600 mb-4 max-w-md">
-                            Speak directly with our pharmacists via WhatsApp or visit us at the pharmacy for a free consultation.
+                        <p className="text-gray-600 mb-8">
+                            Speak directly with our pharmacists via WhatsApp, Chat, or visit us at the pharmacy for a free consultation.
                         </p>
-                        <div className="flex gap-4">
-                            <button className="bg-[#2BB673] text-white font-bold px-8 py-3 rounded-full hover:bg-[#24a565] transition-all shadow-lg flex items-center gap-2">
+                        <div className="flex flex-wrap gap-4">
+                            <button
+                                onClick={handleWhatsApp}
+                                className="bg-[#2BB673] text-white font-bold px-8 py-3 rounded-full hover:bg-[#24a565] transition-all shadow-lg flex items-center gap-2"
+                            >
                                 <MessageCircle className="w-5 h-5" />
                                 WhatsApp Us
                             </button>
-                            <button className="bg-white border-2 border-gray-200 text-gray-700 font-bold px-6 py-3 rounded-full hover:border-[#2BB673] hover:text-[#2BB673] transition-all">
+                            <button
+                                onClick={handleChatUs}
+                                className="bg-[#0052FF] text-white font-bold px-8 py-3 rounded-full hover:bg-[#0041cc] transition-all shadow-lg flex items-center gap-2"
+                            >
+                                <MessageCircle className="w-5 h-5" />
+                                Chat Us
+                            </button>
+                            <button
+                                onClick={handleShare}
+                                className="bg-white border-2 border-gray-200 text-gray-700 font-bold px-6 py-3 rounded-full hover:border-[#2BB673] hover:text-[#2BB673] transition-all"
+                            >
                                 Share Article
                             </button>
                         </div>
