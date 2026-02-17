@@ -20,7 +20,8 @@ const BlogPostPage = () => {
     }
 
     const handleWhatsApp = () => {
-        const message = encodeURIComponent(`Hi Wesabi, I have a question about this article: ${post.title}\n\n${window.location.href}`);
+        const shareUrl = window.location.href;
+        const message = encodeURIComponent(`Hi Wesabi, I have a question about this article: ${post.title}\n\n${shareUrl}`);
         window.open(`https://wa.me/254115691220?text=${message}`, '_blank');
     };
 
@@ -33,19 +34,20 @@ const BlogPostPage = () => {
     };
 
     const handleShare = async () => {
+        const shareUrl = window.location.href;
         if (navigator.share) {
             try {
                 await navigator.share({
                     title: post.title,
                     text: post.excerpt,
-                    url: window.location.href,
+                    url: shareUrl,
                 });
             } catch (error) {
                 console.error('Error sharing:', error);
             }
         } else {
             try {
-                await navigator.clipboard.writeText(window.location.href);
+                await navigator.clipboard.writeText(shareUrl);
                 alert('Link copied to clipboard!');
             } catch (error) {
                 console.error('Error copying to clipboard:', error);

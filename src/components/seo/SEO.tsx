@@ -11,6 +11,9 @@ const SEO = ({ title, description, image = '/logo.png', type = 'website' }: SEOP
     useEffect(() => {
         document.title = `${title} | Wesabi Pharmacy`;
 
+        // Ensure the URL includes the hash for shared links to work with static hosting
+        const currentUrl = window.location.href;
+
         const metaTitle = document.querySelector('meta[property="og:title"]');
         if (metaTitle) metaTitle.setAttribute('content', title);
 
@@ -22,6 +25,26 @@ const SEO = ({ title, description, image = '/logo.png', type = 'website' }: SEOP
 
         const ogImage = document.querySelector('meta[property="og:image"]');
         if (ogImage) ogImage.setAttribute('content', image);
+
+        const ogUrl = document.querySelector('meta[property="og:url"]');
+        if (ogUrl) {
+            ogUrl.setAttribute('content', currentUrl);
+        } else {
+            const meta = document.createElement('meta');
+            meta.setAttribute('property', 'og:url');
+            meta.setAttribute('content', currentUrl);
+            document.head.appendChild(meta);
+        }
+
+        const canonical = document.querySelector('link[rel="canonical"]');
+        if (canonical) {
+            canonical.setAttribute('href', currentUrl);
+        } else {
+            const link = document.createElement('link');
+            link.setAttribute('rel', 'canonical');
+            link.setAttribute('href', currentUrl);
+            document.head.appendChild(link);
+        }
 
         const twitterTitle = document.querySelector('meta[name="twitter:title"]');
         if (twitterTitle) twitterTitle.setAttribute('content', title);

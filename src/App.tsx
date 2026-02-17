@@ -3,6 +3,7 @@ import Navbar from './components/Navbar';
 import Home from './Home';
 import BlogListPage from './pages/BlogListPage';
 import BlogPostPage from './pages/BlogPostPage';
+import PolicyPage from './pages/PolicyPage';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
 
@@ -16,6 +17,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/blogs" element={<BlogListPage />} />
           <Route path="/blog/:id" element={<BlogPostPage />} />
+          <Route path="/policy" element={<PolicyPage />} />
         </Routes>
         <Footer />
       </div>
